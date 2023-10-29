@@ -1,8 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FaEnvelope, FaFacebook, FaLinkedin, FaPhone } from "react-icons/fa";
 import styles from "./Footer.module.scss";
 
 function Footer() {
+  const currentYear = new Date().getFullYear();
   return (
     <div className={`mt-5 pt-5 pb-5 ${styles.footer}`}>
       <div className="container">
@@ -13,25 +15,25 @@ function Footer() {
               Buy your PC requirements at a cheap price here{" "}
             </p>
             <p>
-              <a href="/facebook">
+              <Link to="/facebook">
                 <FaFacebook className={styles.icons} />
-              </a>
-              <a href="/linkdin">
+              </Link>
+              <Link to="/linkdin">
                 <FaLinkedin className={styles.icons} />
-              </a>
+              </Link>
             </p>
           </div>
           <div className={`col-lg-3 col-xs-12 ${styles.links}`}>
             <h4 className="mt-lg-0 mt-sm-3">Links</h4>
             <ul className="m-0 p-0">
               <li>
-                - <a href="/faq">FAQ</a>
+                - <Link to="/faq">FAQ</Link>
               </li>
               <li>
-                - <a href="/privacy-policy">Privacy Policy</a>
+                - <Link to="/privacy-policy">Privacy Policy</Link>
               </li>
               <li>
-                - <a href="/terms-conditions">Terms and Conditions</a>
+                - <Link to="/terms-conditions">Terms Link and Conditions</Link>
               </li>
             </ul>
           </div>
@@ -52,7 +54,7 @@ function Footer() {
           <div className={`col ${styles.copyright}`}>
             <p className="">
               <small className="text-white-50">
-                © 2019. All Rights Reserved.
+                © {currentYear}. All Rights Reserved.
               </small>
             </p>
           </div>
