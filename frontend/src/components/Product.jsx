@@ -8,7 +8,7 @@ function Product({ product }) {
   return (
     <Card className={`my-3 p-3 rounded ${styles.card}`}>
       <Link to={`/product/${product._id}`}>
-        <Card.Img src={product.image} variant="top" />
+        <Card.Img src={product.image} variant="top" className={styles.image} />
       </Link>
 
       <Card.Body>
