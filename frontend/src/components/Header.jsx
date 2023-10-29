@@ -10,8 +10,12 @@ function Header() {
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>
-              <img src="/images.logo.png" alt="PC mate logo" />
-              PC mate
+              <img
+                src="/images/logo_dark.png"
+                alt="PC mate logo"
+                width="220px"
+                height="84px"
+              />
             </Navbar.Brand>
           </LinkContainer>
 
