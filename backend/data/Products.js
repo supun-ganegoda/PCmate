@@ -56,7 +56,7 @@ const products = [
     brand: "GameMax",
     category: "Casing",
     price: 15000,
-    countInStock: 5,
+    countInStock: 0,
     rating: 4.5,
     numReviews: 10,
   },
