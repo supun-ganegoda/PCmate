@@ -1,13 +1,10 @@
 // here not import apiSlice because not deal with async functions fetched from the database
 import { createSlice } from "@reduxjs/toolkit";
+import { updateCart } from "../utils/cartUtils";
 
 const initialState = localStorage.getItem("cart")
   ? JSON.parse(localStorage.getItem("cart"))
   : { cartItems: [] };
-
-const addDecimals = (num) => {
-  return (Math.round(num * 100) / 100).toFixed(2);
-};
 
 const cartSlice = createSlice({
   name: "cart",
@@ -24,17 +21,8 @@ const cartSlice = createSlice({
         state.cartItems = [...state.cartItems, item];
       }
 
-      //calculate items price
-      state.itemsPrice = addDecimals(
-        state.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
-      );
-
-      //calculate the total price (add shipping price)
-      state.totalPrice = addDecimals(
-        Number(state.itemsPrice) + Number(item.shippingPrice)
-      );
-
-      localStorage.setItem("cart", JSON.stringify(state));
+      //calculate total price
+      return updateCart(state);
     },
   },
 });
