@@ -8,7 +8,7 @@ import {
   Card,
 } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart } from "../slices/cartSlice";
+import { addToCart, removeFromCart } from "../slices/cartSlice";
 import Message from "../components/Message";
 import { Link } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
@@ -20,6 +20,10 @@ const CartScreen = () => {
 
   const addToCartHandler = async (item, qty) => {
     dispatch(addToCart({ ...item, qty }));
+  };
+
+  const removeFromCartHandler = async (id) => {
+    dispatch(removeFromCart(id));
   };
 
   return (
@@ -68,7 +72,11 @@ const CartScreen = () => {
                     </Col>
 
                     <Col md={2} className="d-flex align-items-center">
-                      <Button type="button" variant="light">
+                      <Button
+                        type="button"
+                        variant="light"
+                        onClick={() => removeFromCartHandler(item._id)}
+                      >
                         <FaTrash />
                       </Button>
                     </Col>
