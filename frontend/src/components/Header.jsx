@@ -4,7 +4,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { useSelector } from "react-redux";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
-import { UseSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import styles from "./Header.module.scss";
 import React from "react";
 import { useNavigate } from "react-router-dom";

@@ -34,7 +34,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 
   if (userExists) {
     res.status(400);
-    throw new Error("User is already resgitered");
+    throw new Error("User is already registered");
   }
 
   const user = await User.create({
