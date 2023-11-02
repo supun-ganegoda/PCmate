@@ -11,7 +11,7 @@ function HomeScreen() {
     <>
       {isLoading ? (
         <>
-          <Loader />
+          <Loader width={"100px"} height={"100px"} />
         </>
       ) : error ? (
         <>
