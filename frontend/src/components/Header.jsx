@@ -79,6 +79,22 @@ function Header() {
                   </Nav.Link>
                 </LinkContainer>
               )}
+
+              {userInfo && userInfo.isAdmin && (
+                <NavDropdown title="Admin Panel" id="adminPanel">
+                  <LinkContainer to="/admin/product-list">
+                    <NavDropdown.Item>Product List</NavDropdown.Item>
+                  </LinkContainer>
+
+                  <LinkContainer to="/admin/user-list">
+                    <NavDropdown.Item>Customer List</NavDropdown.Item>
+                  </LinkContainer>
+
+                  <LinkContainer to="/admin/order-list">
+                    <NavDropdown.Item>Order List</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
