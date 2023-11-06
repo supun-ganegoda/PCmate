@@ -122,21 +122,21 @@ const PlaceOrderScreen = () => {
               <ListGroup.Item>
                 <Row>
                   <Col>Items:</Col>
-                  <Col> {cart.itemsPrice}</Col>
+                  <Col>Rs. {cart.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping:</Col>
-                  <Col> {cart.shippingPrice}</Col>
+                  <Col>Rs. {cart.shippingPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
                   <Col>Total:</Col>
-                  <Col> {cart.totalPrice}</Col>
+                  <Col>Rs. {cart.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
 

@@ -15,7 +15,9 @@ export const updateCart = (state) => {
   //   );
 
   state.shippingPrice = addDecimals(450);
-  state.totalPrice = state.itemsPrice + state.shippingPrice;
+  state.totalPrice = addDecimals(
+    Number(state.itemsPrice) + Number(state.shippingPrice)
+  );
 
   localStorage.setItem("cart", JSON.stringify(state));
   return state;
