@@ -3,11 +3,12 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   useGetProductDetailsQuery,
   useUpdateProductMutation,
+  useUploadProductImageMutation,
 } from "../slices/productsApiSlice";
 import FormContainer from "../components/FormContainer";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
-import { Button, Form } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 
 const ProductEditScreen = () => {
@@ -30,6 +31,9 @@ const ProductEditScreen = () => {
   } = useGetProductDetailsQuery(productId);
   const [updateProduct, { isLoading: loadingUpdate }] =
     useUpdateProductMutation();
+
+  const [uploadProductImage, { isLoading: uploadingImage }] =
+    useUploadProductImageMutation();
 
   useEffect(() => {
     if (product) {
@@ -64,13 +68,33 @@ const ProductEditScreen = () => {
     }
   };
 
+  const imageUploadHandler = async (e) => {
+    const formData = new FormData();
+    formData.append("image", e.target.files[0]);
+
+    try {
+      const res = await uploadProductImage(formData).unwrap();
+      toast.success(res.message);
+      setImage(res.image);
+    } catch (error) {
+      toast.error(error?.data?.message || error.error);
+    }
+  };
+
   return (
     <>
       <Link to="/admin/product-list" className="btn btn-light my-3">
         Go Back
       </Link>
 
-      <FormContainer>
+      <div
+        className="container mx-auto p-4"
+        style={{
+          width: "80%",
+          backgroundColor: "#f5f5f4",
+          borderRadius: "12px",
+        }}
+      >
         <h1>Edit Product</h1>
         {loadingProduct ? (
           <Loader />
@@ -79,7 +103,7 @@ const ProductEditScreen = () => {
         ) : (
           <div className="d-flex-column justify-content-center">
             <Form onSubmit={submitHandler}>
-              <Form.Group controlId="name">
+              <Form.Group controlId="name" className="my-2">
                 <Form.Label>Name</Form.Label>
                 <Form.Control
                   type="text"
@@ -89,7 +113,7 @@ const ProductEditScreen = () => {
                 />
               </Form.Group>
 
-              <Form.Group controlId="price">
+              <Form.Group controlId="price" className="my-2">
                 <Form.Label>Price</Form.Label>
                 <Form.Control
                   type="number"
@@ -99,7 +123,36 @@ const ProductEditScreen = () => {
                 />
               </Form.Group>
 
-              <Form.Group controlId="brand">
+              <Form.Group controlId="image" className="my-2">
+                <Row>
+                  <Col className="col-9">
+                    <Form.Label>Product Image</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="image url"
+                      value={image}
+                      onChange={(e) => setImage(e.target.value)}
+                    />
+                  </Col>
+                  {uploadingImage && (
+                    <Col className="d-flex align-items-center">
+                      <Loader />
+                    </Col>
+                  )}
+                </Row>
+                <Row>
+                  <Col>
+                    <Form.Control
+                      className="my-2"
+                      type="file"
+                      Label="choose file"
+                      onChange={imageUploadHandler}
+                    />
+                  </Col>
+                </Row>
+              </Form.Group>
+
+              <Form.Group controlId="brand" className="my-2">
                 <Form.Label>Brand</Form.Label>
                 <Form.Control
                   type="text"
@@ -109,7 +162,7 @@ const ProductEditScreen = () => {
                 />
               </Form.Group>
 
-              <Form.Group controlId="cuntInStock">
+              <Form.Group controlId="cuntInStock" className="my-2">
                 <Form.Label>Count In Stock</Form.Label>
                 <Form.Control
                   type="number"
@@ -119,7 +172,7 @@ const ProductEditScreen = () => {
                 />
               </Form.Group>
 
-              <Form.Group controlId="category">
+              <Form.Group controlId="category" className="my-2">
                 <Form.Label>Category</Form.Label>
                 <Form.Control
                   type="text"
@@ -129,7 +182,7 @@ const ProductEditScreen = () => {
                 />
               </Form.Group>
 
-              <Form.Group controlId="description">
+              <Form.Group controlId="description" className="my-2">
                 <Form.Label>Description</Form.Label>
                 <Form.Control
                   as="textarea"
@@ -146,7 +199,7 @@ const ProductEditScreen = () => {
             </Form>
           </div>
         )}
-      </FormContainer>
+      </div>
     </>
   );
 };
