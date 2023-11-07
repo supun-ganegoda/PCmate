@@ -1,0 +1,97 @@
+import React from "react";
+import {
+  useCreateProductMutation,
+  useGetProductsQuery,
+} from "../slices/productsApiSlice";
+import { Button, Col, Row, Table } from "react-bootstrap";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
+import { LinkContainer } from "react-router-bootstrap";
+import { toast } from "react-toastify";
+
+const ProductListScreen = () => {
+  const { data: products, isLoading, error, refetch } = useGetProductsQuery();
+  const [createProduct, { isLoading: loadingCreate }] =
+    useCreateProductMutation();
+
+  const deleteHandler = (ID) => {
+    console.log(ID);
+  };
+
+  const createProductHandler = async () => {
+    if (window.confirm("Are you sure to create new Product")) {
+      try {
+        await createProduct();
+        refetch();
+      } catch (error) {
+        toast.error(error?.data?.message || error.error);
+      }
+    }
+  };
+
+  return (
+    <>
+      <Row className="align-items-center">
+        <Col>
+          <h1>Products</h1>
+        </Col>
+        <Col className="text-end">
+          {loadingCreate ? (
+            <Loader />
+          ) : (
+            <Button className="btn-sm m-3" onClick={createProductHandler}>
+              <FaEdit className="mx-2" />
+              Create Product
+            </Button>
+          )}
+        </Col>
+      </Row>
+
+      {isLoading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant="danger">{error}</Message>
+      ) : (
+        <>
+          <Table striped hover responsive className="table-sm">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Brand</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((product, index) => (
+                <tr key={index}>
+                  <td>{product._id}</td>
+                  <td>{product.name}</td>
+                  <td>Rs. {product.price}</td>
+                  <td>{product.category}</td>
+                  <td>{product.brand}</td>
+                  <td className="px-2">
+                    <LinkContainer to={`/admin/product/${product._id}/edit`}>
+                      <FaEdit role="button" />
+                    </LinkContainer>
+                  </td>
+                  <td className="px-2">
+                    <FaTrash
+                      style={{ color: "red" }}
+                      role="button"
+                      onClick={() => deleteHandler(product._id)}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </>
+      )}
+    </>
+  );
+};
+
+export default ProductListScreen;
