@@ -2,6 +2,7 @@ import React from "react";
 import {
   useCreateProductMutation,
   useGetProductsQuery,
+  useDeleteProductMutation,
 } from "../slices/productsApiSlice";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import { FaEdit, FaTrash } from "react-icons/fa";
@@ -14,9 +15,19 @@ const ProductListScreen = () => {
   const { data: products, isLoading, error, refetch } = useGetProductsQuery();
   const [createProduct, { isLoading: loadingCreate }] =
     useCreateProductMutation();
+  const [deleteProduct, { isLoading: loadingDelete }] =
+    useDeleteProductMutation();
 
-  const deleteHandler = (ID) => {
-    console.log(ID);
+  const deleteHandler = async (productId) => {
+    if (window.confirm("Are you sure ?")) {
+      try {
+        const res = await deleteProduct(productId).unwrap();
+        toast.success(res.message);
+        refetch();
+      } catch (error) {
+        toast.error(error?.data?.message || error.error);
+      }
+    }
   };
 
   const createProductHandler = async () => {
@@ -78,11 +89,15 @@ const ProductListScreen = () => {
                     </LinkContainer>
                   </td>
                   <td className="px-2">
-                    <FaTrash
-                      style={{ color: "red" }}
-                      role="button"
-                      onClick={() => deleteHandler(product._id)}
-                    />
+                    {loadingDelete ? (
+                      <Loader />
+                    ) : (
+                      <FaTrash
+                        style={{ color: "red" }}
+                        role="button"
+                        onClick={() => deleteHandler(product._id)}
+                      />
+                    )}
                   </td>
                 </tr>
               ))}
