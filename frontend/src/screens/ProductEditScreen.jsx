@@ -5,7 +5,6 @@ import {
   useUpdateProductMutation,
   useUploadProductImageMutation,
 } from "../slices/productsApiSlice";
-import FormContainer from "../components/FormContainer";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { Button, Col, Form, Row } from "react-bootstrap";
@@ -27,10 +26,8 @@ const ProductEditScreen = () => {
     data: product,
     isLoading: loadingProduct,
     error,
-    refetch,
   } = useGetProductDetailsQuery(productId);
-  const [updateProduct, { isLoading: loadingUpdate }] =
-    useUpdateProductMutation();
+  const [updateProduct] = useUpdateProductMutation();
 
   const [uploadProductImage, { isLoading: uploadingImage }] =
     useUploadProductImageMutation();
