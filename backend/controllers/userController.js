@@ -127,7 +127,7 @@ export const getUsers = asyncHandler(async (req, res) => {
 // @route POST /api/users/:id
 // @access private/admin
 export const deleteUser = asyncHandler(async (req, res) => {
-  const user = await User.findById(res.params.id);
+  const user = await User.findById(req.params.id);
   if (user) {
     if (user.isAdmin) {
       res.status(400);
