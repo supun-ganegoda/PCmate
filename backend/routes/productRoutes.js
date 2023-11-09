@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createProduct,
+  createProductReview,
   deleteProduct,
   getAllProducts,
   getProduct,
@@ -16,5 +17,6 @@ router
   .get(getProduct)
   .put(protect, admin, updateProduct)
   .delete(protect, admin, deleteProduct);
+router.route("/:id/review").post(protect, createProductReview);
 
 export default router;
