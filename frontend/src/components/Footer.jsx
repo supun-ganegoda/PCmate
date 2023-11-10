@@ -6,7 +6,7 @@ import styles from "./Footer.module.scss";
 function Footer() {
   const currentYear = new Date().getFullYear();
   return (
-    <div className={`mt-5 pt-5 pb-5 ${styles.footer}`}>
+    <div className={`mt-2 pt-5 pb-5 ${styles.footer}`}>
       <div className="container">
         <div className="row">
           <div className={`col-lg-5 col-xs-12 ${styles.about}`}>

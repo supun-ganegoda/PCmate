@@ -3,14 +3,17 @@ import { FaCheck, FaEdit, FaTimes, FaTrash } from "react-icons/fa";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { LinkContainer } from "react-router-bootstrap";
+import Paginate from "../components/Paginate";
 import { toast } from "react-toastify";
 import {
   useDeleteUserMutation,
   useGetUsersQuery,
 } from "../slices/usersApiSlice";
+import { useParams } from "react-router-dom";
 
 const UserListScreen = () => {
-  const { data: users, isLoading, error, refetch } = useGetUsersQuery();
+  const { pageNumber } = useParams();
+  const { data, isLoading, error, refetch } = useGetUsersQuery({ pageNumber });
   const [deleteUser, { isLoading: loadingDelete }] = useDeleteUserMutation();
 
   const deleteHandler = async (userId) => {
@@ -49,7 +52,7 @@ const UserListScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map((user, index) => (
+              {data.users.map((user, index) => (
                 <tr key={index}>
                   <td>{user._id}</td>
                   <td>{user.name}</td>
@@ -83,6 +86,17 @@ const UserListScreen = () => {
               ))}
             </tbody>
           </Table>
+
+          <Row>
+            <Col className="d-flex justify-content-center align-items-center pt-4">
+              <Paginate
+                pages={data.pages}
+                page={data.page}
+                isAdmin={true}
+                dashBoard="user-list"
+              />
+            </Col>
+          </Row>
         </>
       )}
     </>
