@@ -1,0 +1,27 @@
+.carousel {
+  max-height: 30vh;
+  background-color: #f5f5f4;
+
+  .image {
+    height: 30vh;
+    max-width: 100%;
+  }
+
+  .caption {
+    color: #1c1917;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .image {
+      margin: 0 auto;
+      display: block;
+    }
+    .caption h2 {
+      font-size: 16px;
+      color: #f5f5f4;
+      padding: 4px;
+      border-radius: 12px;
+      background-color: #44403c;
+    }
+  }
+}
