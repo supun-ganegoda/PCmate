@@ -10,6 +10,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "./Loader";
+import Search from "./Search";
 
 function Header() {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ function Header() {
           <Navbar.Toggle aria-controls="basic navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
+              <Search />
               <LinkContainer to="/cart">
                 <Nav.Link>
                   <FaShoppingCart /> Cart
