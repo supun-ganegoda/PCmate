@@ -36,13 +36,14 @@ function Header() {
       <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand>
+            <Navbar.Brand className="d-flex align-items-center justify-content-center">
               <img
-                src="/images/logo_dark.png"
+                src="/images/logo.png"
                 alt="PC mate logo"
-                width="220px"
-                height="84px"
+                width="32px"
+                height="32px"
               />
+              <p className="px-2 mt-3 ">PCmate</p>
             </Navbar.Brand>
           </LinkContainer>
 

@@ -8,6 +8,7 @@ import { useCreateOrderMutation } from "../slices/orderApiSlice";
 import Loader from "../components/Loader";
 import { clearCartItems } from "../slices/cartSlice";
 import { toast } from "react-toastify";
+import { useUpdateQtyMutation } from "../slices/productsApiSlice";
 
 const PlaceOrderScreen = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const PlaceOrderScreen = () => {
   const cart = useSelector((state) => state.cart);
 
   const [createOrder, { isLoading }, error] = useCreateOrderMutation();
+  const [updateProduct] = useUpdateQtyMutation();
 
   useEffect(() => {
     if (!cart.shippingAddress.address) {
@@ -34,6 +36,15 @@ const PlaceOrderScreen = () => {
         shippingPrice: cart.shippingPrice,
         totalPrice: cart.totalPrice,
       }).unwrap();
+
+      //update the current count in stock value according to ordered qty
+      cart.cartItems.forEach((item) => {
+        const updatedStock = item.countInStock - item.qty;
+        updateProduct({
+          _id: item._id,
+          countInStock: updatedStock,
+        });
+      });
 
       dispatch(clearCartItems());
       navigate(`/order/${res._id}`);
@@ -93,8 +104,8 @@ const PlaceOrderScreen = () => {
                         </Col>
 
                         <Col md={4} className="d-flex align-items-center">
-                          {item.qty} x Rs. {item.price} = Rs.{" "}
-                          {item.price * item.qty}
+                          {item.qty} x Rs. {item.price.toFixed(2)} = Rs.{" "}
+                          {(item.price * item.qty).toFixed(2)}
                         </Col>
                       </Row>
                     </ListGroup.Item>

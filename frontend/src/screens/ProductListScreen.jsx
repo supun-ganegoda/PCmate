@@ -84,7 +84,7 @@ const ProductListScreen = () => {
                 <tr key={index}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
-                  <td>Rs. {product.price}</td>
+                  <td>Rs. {product.price.toFixed(2)}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
                   <td className="px-2">

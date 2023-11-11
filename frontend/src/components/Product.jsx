@@ -13,7 +13,7 @@ function Product({ product }) {
 
       <Card.Body>
         <Link to={`/product/${product._id}`}>
-          <Card.Title as="div">
+          <Card.Title as="div" className={styles.cardTitle}>
             <strong>{product.name}</strong>
           </Card.Title>
         </Link>
@@ -23,7 +23,7 @@ function Product({ product }) {
             text={`${product.numReviews} reviews`}
           />
         </Card.Text>
-        <Card.Text as="h3">{product.price}</Card.Text>
+        <Card.Text as="h3">Rs. {product.price.toFixed(2)}</Card.Text>
       </Card.Body>
     </Card>
   );

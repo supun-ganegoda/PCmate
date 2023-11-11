@@ -115,7 +115,7 @@ const ProductEditScreen = () => {
                 <Form.Control
                   type="number"
                   placeholder="update price"
-                  value={price}
+                  value={price.toFixed(2)}
                   onChange={(e) => setPrice(e.target.value)}
                 />
               </Form.Group>

@@ -46,10 +46,18 @@ export const createProduct = asyncHandler(async (req, res) => {
 });
 
 export const updateProduct = asyncHandler(async (req, res) => {
-  const { name, price, description, image, brand, category, countInStock } =
-    req.body;
+  const {
+    _id,
+    name,
+    price,
+    description,
+    image,
+    brand,
+    category,
+    countInStock,
+  } = req.body;
 
-  const product = await Product.findById(req.params.id);
+  const product = await Product.findById(req.params.id || _id);
   if (product) {
     product.name = name;
     product.price = price;
@@ -65,6 +73,18 @@ export const updateProduct = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("Product not found");
   }
+});
+
+export const updateQty = asyncHandler(async (req, res) => {
+  const { _id, countInStock } = req.body;
+  console.log(req.body);
+  const updatedProduct = await Product.findByIdAndUpdate(
+    { _id: _id },
+    { $set: { countInStock: countInStock } },
+    { new: true }
+  );
+
+  res.status(200).json(updatedProduct);
 });
 
 export const deleteProduct = asyncHandler(async (req, res) => {

@@ -58,7 +58,7 @@ const CartScreen = () => {
                     </Col>
 
                     <Col md={2} className="d-flex align-items-center">
-                      Rs. {item.price}
+                      Rs. {item.price.toFixed(2)}
                     </Col>
 
                     <Col md={2} sm={1} className="d-flex align-items-center">
@@ -102,10 +102,9 @@ const CartScreen = () => {
                 </h3>
                 <h5>
                   Rs.{" "}
-                  {cartItems.reduce(
-                    (acc, item) => acc + item.price * item.qty,
-                    0
-                  )}
+                  {cartItems
+                    .reduce((acc, item) => acc + item.price * item.qty, 0)
+                    .toFixed(2)}
                 </h5>
               </ListGroup.Item>
 

@@ -26,7 +26,7 @@ const ProductCarousel = () => {
               />
               <Carousel.Caption className={styles.caption}>
                 <h2>
-                  {product.name} (Rs. {product.price})
+                  {product.name} (Rs. {product.price.toFixed(2)})
                 </h2>
               </Carousel.Caption>
             </Link>

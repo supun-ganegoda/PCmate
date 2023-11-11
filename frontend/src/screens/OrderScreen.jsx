@@ -85,7 +85,7 @@ const OrderScreen = () => {
         purchase_units: [
           {
             amount: {
-              value: order.totalPrice,
+              value: order.totalPrice.toFixed(2),
             },
           },
         ],
@@ -167,8 +167,8 @@ const OrderScreen = () => {
                       <Link to={`/products/${item.product}`}>{item.name}</Link>
                     </Col>
                     <Col md={6}>
-                      {item.qty} x Rs. {item.price} = Rs.{" "}
-                      {item.qty * item.price}
+                      {item.qty} x Rs. {item.price.toFixed(2)} = Rs.{" "}
+                      {(item.qty * item.price).toFixed(2)}
                     </Col>
                   </Row>
                 </ListGroup.Item>
@@ -186,17 +186,17 @@ const OrderScreen = () => {
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
-                  <Col>Rs. {order.itemsPrice}</Col>
+                  <Col>Rs. {order.itemsPrice.toFixed(2)}</Col>
                 </Row>
 
                 <Row>
                   <Col>Shipping</Col>
-                  <Col>Rs. {order.shippingPrice}</Col>
+                  <Col>Rs. {order.shippingPrice.toFixed(2)}</Col>
                 </Row>
 
                 <Row>
                   <Col>Total Price</Col>
-                  <Col>Rs. {order.totalPrice}</Col>
+                  <Col>Rs. {order.totalPrice.toFixed(2)}</Col>
                 </Row>
               </ListGroup.Item>
 
