@@ -3,7 +3,7 @@ import Product from "../models/productModel.js";
 
 // @desc get all products
 export const getAllProducts = asyncHandler(async (req, res) => {
-  const pageSize = 8;
+  const pageSize = process.env.PAGE_COUNT;
   const page = Number(req.query.pageNumber) || 1;
 
   const keyword = req.query.keyword
@@ -77,7 +77,7 @@ export const updateProduct = asyncHandler(async (req, res) => {
 
 export const updateQty = asyncHandler(async (req, res) => {
   const { _id, countInStock } = req.body;
-  console.log(req.body);
+
   const updatedProduct = await Product.findByIdAndUpdate(
     { _id: _id },
     { $set: { countInStock: countInStock } },
